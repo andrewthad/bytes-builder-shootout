@@ -1,0 +1,6 @@
+packages: .
+
+source-repository-package
+  type: git
+  location: https://github.com/andrewthad/small-bytearray-builder
+  tag: e0b9d744cffacf6217ad9b48e3da8de7bb111e49

@@ -1,0 +1,16 @@
+signature Builder where
+
+import Data.Word (Word8,Word16)
+import Data.Text.Short (ShortText)
+
+data Builder
+data Target
+data Settings
+
+instance Semigroup Builder
+
+ascii :: Char -> Builder
+shortText :: ShortText -> Builder
+paddedWord16 :: Word16 -> Builder
+run :: Settings -> Builder -> Target
+word8 :: Word8 -> Builder

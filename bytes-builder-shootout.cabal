@@ -1,0 +1,70 @@
+cabal-version: 2.2
+name: bytes-builder-shootout
+version: 0.1.0.0
+synopsis: A grisly no-holds-barred competition among builders of bytes
+homepage: https://github.com/andrewthad/bytes-builder-shootout
+bug-reports: https://github.com/andrewthad/bytes-builder-shootout/issues
+license: BSD-3-Clause
+license-file: LICENSE
+author: Andrew Martin
+maintainer: andrew.thaddeus@gmail.com
+copyright: 2019 Andrew Martin
+category: Data
+extra-source-files: CHANGELOG.md
+
+library common
+  build-depends:
+    , base >= 4.12 && < 5
+    , bytestring
+    , small-bytearray-builder
+    , byteslice
+    , primitive
+    , deepseq
+    , fast-builder >=0.1.2
+    , text-short
+  exposed-modules:
+    Data.Tree.Word16
+    Data.Tree.ShortText
+    Data.Tree.Byte
+    Impl.SmallByteArrayBuilder
+    Impl.ByteString
+    Impl.FastBuilder
+  hs-source-dirs: src-common
+  ghc-options: -Wall -O2
+  default-language: Haskell2010
+
+-- You need to provide Builder to instantiate this.
+library indef
+  build-depends:
+    , base >= 4.11.1 && < 5
+    , common
+    , small-bytearray-builder
+    , primitive-offset
+    , text-short
+  exposed-modules: Encode
+  default-language: Haskell2010
+  ghc-options: -Wall -O2
+  hs-source-dirs: src-indef
+  signatures: Builder
+
+executable bytes-builder-shootout
+  main-is: Main.hs
+  build-depends:
+    , base >=4.12.0.0 && <5
+    , gauge
+    , common
+    , indef
+    , bytestring
+    , small-bytearray-builder
+    , primitive
+  hs-source-dirs: app
+  default-language: Haskell2010
+  ghc-options: -Wall -O2
+  mixins:
+    indef (Encode as Encode.SmallByteArrayBuilder)
+      requires (Builder as Impl.SmallByteArrayBuilder),
+    indef (Encode as Encode.ByteString)
+      requires (Builder as Impl.ByteString),
+    indef (Encode as Encode.FastBuilder)
+      requires (Builder as Impl.FastBuilder)
+
