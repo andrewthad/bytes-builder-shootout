@@ -13,9 +13,10 @@ import Data.Word (Word16)
 import Data.ByteArray.Builder (Builder)
 import Data.Primitive (ByteArray)
 import Data.Text.Short (ShortText)
+import Data.Bytes.Chunks (Chunks)
 import qualified Data.ByteArray.Builder as B
 
-type Target = ByteArray
+type Target = Chunks
 type Settings = Int
 
 shortText :: ShortText -> Builder

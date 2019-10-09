@@ -66,4 +66,4 @@ defStrategy :: E.AllocationStrategy
 defStrategy = E.safeStrategy (4096 - 16) (32 * 1024 - 16)
 
 defFastBuilderStrategy :: (Int,Int)
-defFastBuilderStrategy = (4096 - 16, 32 * 1024 - 16)
+defFastBuilderStrategy = (1024 * 128 - 16, 1024 * 256 - 16)
