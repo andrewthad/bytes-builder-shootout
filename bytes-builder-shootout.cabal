@@ -22,6 +22,7 @@ library common
     , deepseq
     , fast-builder >=0.1.2
     , text-short
+    , mason
   exposed-modules:
     Data.Tree.Word16
     Data.Tree.ShortText
@@ -29,6 +30,7 @@ library common
     Impl.SmallByteArrayBuilder
     Impl.ByteString
     Impl.FastBuilder
+    Impl.Mason
   hs-source-dirs: src-common
   ghc-options: -Wall -O2 -ddump-simpl -dsuppress-all -ddump-to-file
   default-language: Haskell2010
@@ -66,5 +68,7 @@ executable bytes-builder-shootout
     indef (Encode as Encode.ByteString)
       requires (Builder as Impl.ByteString),
     indef (Encode as Encode.FastBuilder)
-      requires (Builder as Impl.FastBuilder)
+      requires (Builder as Impl.FastBuilder),
+    indef (Encode as Encode.Mason)
+      requires (Builder as Impl.Mason)
 
