@@ -12,6 +12,7 @@ import qualified Data.ByteString.Builder.Extra as E
 import qualified Encode.SmallByteArrayBuilder as SmallByteArrayBuilder
 import qualified Encode.ByteString as ByteString
 import qualified Encode.FastBuilder as FastBuilder
+import qualified Encode.Mason as Mason
 
 import qualified Data.Tree.Word16 as Word16Tree
 import qualified Data.Tree.ShortText as ShortTextTree
@@ -29,6 +30,9 @@ main = defaultMain
     , bench "bytestring" $ whnf
         (\x -> ByteString.treeToHex defStrategy x)
         Word16Tree.ex2000
+    , bench "mason" $ whnf
+        (\x -> Mason.treeToHex () x)
+        Word16Tree.ex2000
     ]
   , bgroup "treeToHex-9000"
     [ bench "small-bytearray-builder" $ whnf
@@ -36,6 +40,9 @@ main = defaultMain
         Word16Tree.ex9000
     , bench "bytestring" $ whnf
         (\x -> ByteString.treeToHex defStrategy x)
+        Word16Tree.ex9000
+    , bench "mason" $ whnf
+        (\x -> Mason.treeToHex () x)
         Word16Tree.ex9000
     ]
   , bgroup "short-text-tree-1000"
@@ -48,6 +55,9 @@ main = defaultMain
     , bench "bytestring" $ whnf
         (\x -> ByteString.shortTextTree defStrategy x)
         ShortTextTree.ex1000
+    , bench "mason" $ whnf
+        (\x -> Mason.shortTextTree () x)
+        ShortTextTree.ex1000
     ]
   , bgroup "byte-tree-2000"
     [ bench "small-bytearray-builder" $ whnf
@@ -58,6 +68,9 @@ main = defaultMain
         ByteTree.ex2000
     , bench "bytestring" $ whnf
         (\x -> ByteString.byteTree defStrategy x)
+        ByteTree.ex2000
+    , bench "mason" $ whnf
+        (\x -> Mason.byteTree () x)
         ByteTree.ex2000
     ]
   ]
